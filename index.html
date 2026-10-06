@@ -31,7 +31,7 @@
 
     <main class="max-w-4xl mx-auto px-4 space-y-8">
 
-        <!-- IDENTITAS SISWA -->
+        <!-- IDENTITAS SISWA (17 NAMA SISWA) -->
         <section class="bg-white p-6 rounded-2xl shadow-md border-2 border-emerald-300">
             <h2 class="text-xl font-bold text-emerald-700 mb-4 flex items-center gap-2">
                 <i class="fa-solid fa-user-astronaut text-2xl"></i> Identitas Detektif Alam
@@ -77,7 +77,9 @@
             </div>
             <p class="text-sm text-slate-600 mb-4">Pilihlah satu jawaban yang paling tepat!</p>
 
-            <div id="pgContainer" class="space-y-6"></div>
+            <div id="pgContainer" class="space-y-6">
+                <!-- Soal PG akan dimunculkan oleh JavaScript di bawah -->
+            </div>
         </section>
 
         <!-- BAGIAN B: URAIAN SINGKAT (5 SOAL) -->
@@ -107,4 +109,251 @@
                     <textarea id="uraian4" rows="2" class="w-full p-3 border-2 border-slate-200 rounded-xl focus:border-teal-400 focus:outline-none" placeholder="Tuliskan jawabanmu..."></textarea>
                 </div>
                 <div>
-                    <label class="block font
+                    <label class="block font-medium text-slate-700 mb-1">5. Tuliskan 3 tindakan nyata yang bisa kamu lakukan di rumah atau sekolah untuk ikut serta menjaga keseimbangan alam!</label>
+                    <textarea id="uraian5" rows="2" class="w-full p-3 border-2 border-slate-200 rounded-xl focus:border-teal-400 focus:outline-none" placeholder="Tuliskan jawabanmu..."></textarea>
+                </div>
+            </div>
+        </section>
+
+        <!-- BAGIAN C: PERCOBAAN MINI KOMPOSTER (NON-PENILAIAN) -->
+        <section class="bg-white p-6 rounded-2xl shadow-md border-2 border-amber-200">
+            <div class="flex justify-between items-center mb-4">
+                <h2 class="text-xl font-bold text-amber-800 flex items-center gap-2">
+                    <i class="fa-solid fa-vial"></i> C. PERCOBAAN & AMATAN DI RUMAH
+                </h2>
+                <span class="bg-amber-100 text-amber-800 text-xs font-bold px-3 py-1 rounded-full">Lembar Pengamatan (0 Poin)</span>
+            </div>
+
+            <div class="bg-amber-50 p-4 rounded-xl border border-amber-300 mb-4 text-sm text-slate-700 space-y-2">
+                <h3 class="font-bold text-amber-900">Misi Detektif Lingkungan: Mini Komposter "Pahlawan Dekomposer"</h3>
+                <p><b>Alat & Bahan:</b> 2 gelas plastik (Gelas A: Daun/Sayur & Gelas B: Plastik), Tanah, Air, Potongan sampah daun/plastik.</p>
+                <p><b>Tabel Hasil Pengamatan:</b> Gelas A (Daun) membusuk/hancur di hari ke-7, sedangkan Gelas B (Plastik) tetap utuh/tidak membusuk.</p>
+            </div>
+
+            <div class="space-y-4">
+                <div>
+                    <label class="block font-medium text-slate-700 mb-1">1. Bahan di dalam gelas manakah yang mengalami pembusukan atau penguraian? Mengapa demikian?</label>
+                    <textarea id="analisis1" rows="2" class="w-full p-3 border-2 border-slate-200 rounded-xl focus:border-amber-400 focus:outline-none" placeholder="Catat hasil pengamatanmu di sini..."></textarea>
+                </div>
+                <div>
+                    <label class="block font-medium text-slate-700 mb-1">2. Kesimpulan apa yang kamu dapatkan mengenai pentingnya dekomposer bagi tanah dan ekosistem?</label>
+                    <textarea id="analisis2" rows="2" class="w-full p-3 border-2 border-slate-200 rounded-xl focus:border-amber-400 focus:outline-none" placeholder="Tuliskan kesimpulanmu di sini..."></textarea>
+                </div>
+            </div>
+        </section>
+
+        <!-- TOMBOL HITUNG -->
+        <section class="text-center">
+            <button onclick="hitungNilai()" class="bg-gradient-to-r from-emerald-500 to-teal-600 hover:from-emerald-600 hover:to-teal-700 text-white font-extrabold text-lg px-8 py-4 rounded-2xl shadow-lg transform active:scale-95 transition">
+                <i class="fa-solid fa-calculator mr-2"></i> Hitung Nilai & Periksa Hasil
+            </button>
+        </section>
+
+        <!-- LAPORAN HASIL & SETOR KE GURU -->
+        <section id="hasilSection" class="bg-gradient-to-br from-emerald-100 to-teal-100 p-6 rounded-2xl border-4 border-emerald-400 shadow-xl hidden">
+            <div class="text-center space-y-4">
+                <h3 class="text-2xl font-black text-emerald-900">
+                    <i class="fa-solid fa-trophy text-amber-500 mr-2"></i> Laporan Hasil LKPD IPAS
+                </h3>
+                <p class="text-slate-700 font-semibold" id="ringkasanSiswa"></p>
+                <div class="my-4 inline-block bg-white px-8 py-4 rounded-3xl border-4 border-emerald-300 shadow-md">
+                    <span class="text-sm text-slate-500 font-bold block uppercase">Total Nilai Kamu</span>
+                    <span class="text-5xl font-black text-emerald-600" id="totalSkor">0</span>
+                    <span class="text-slate-400 font-bold text-xl">/ 100</span>
+                </div>
+
+                <div class="bg-white p-5 rounded-2xl border-2 border-emerald-400 shadow-sm max-w-md mx-auto space-y-3">
+                    <h4 class="font-bold text-slate-800 text-base">Setorkan Nilai ke Google Sheets Guru</h4>
+                    <button id="btnKirimGuru" onclick="kirimKeGuru()" class="w-full bg-emerald-600 hover:bg-emerald-700 text-white font-extrabold text-lg py-3 px-6 rounded-xl shadow transition">
+                        🚀 Kirim Laporan Nilai ke Guru
+                    </button>
+                    <p id="statusKirim" class="font-bold text-sm min-h-[20px]"></p>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <script>
+        const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbzXZQcWGKAYLbz9X9O2_-Qs4mIlvtf9M0xlMa-0ZwxuRBmoE9dhjmXDyGjEUAxMpEHe/exec";
+
+        // DATA 10 SOAL PILIHAN GANDA DARI GAMBAR LKPD
+        const pgData = [
+            { 
+                q: "1. Semua energi awal yang mengalir dalam ekosistem dan dimanfaatkan oleh tumbuhan berasal dari...", 
+                opts: ["Air", "Tanah", "Matahari", "Udara"], 
+                ans: 2 
+            },
+            { 
+                q: "2. Peran dekomposer (pengurai) dalam alur energi ekosistem sangat penting, yaitu...", 
+                opts: ["Mengubah energi matahari menjadi makanan", "Menguraikan bangkai makhluk hidup menjadi nutrisi bagi tanah", "Memburu hewan karnivora yang sudah tua", "Membakar sampah organik di dalam hutan"], 
+                ans: 1 
+            },
+            { 
+                q: "3. Makhluk hidup menggunakan energi yang diperoleh dari makanan untuk kegiatan berikut, KECUALI...", 
+                opts: ["Tumbuh dan berkembang biak", "Beraktivitas dan bernapas", "Merusak tempat tinggal makhluk hidup lain", "Mempertahankan kelangsungan hidup"], 
+                ans: 2 
+            },
+            { 
+                q: "4. Sisa energi dari makanan yang didapat oleh makhluk hidup akan...", 
+                opts: ["Hilang begitu saja tanpa bekas", "Disimpan di dalam tubuh", "Dikembalikan langsung ke Matahari", "Berubah menjadi air mata"], 
+                ans: 1 
+            },
+            { 
+                q: "5. Apa yang menggambarkan besarnya energi yang tersedia pada suatu ekosistem secara berderet dari produsen hingga konsumen puncak?", 
+                opts: ["Piramida Makanan", "Rantai Sepeda", "Jaring-jaring Ikan", "Siklus Air"], 
+                ans: 0 
+            },
+            { 
+                q: "6. Jika populasi salah satu komponen dalam jaring-jaring makanan mendadak hilang/punah, maka yang akan terjadi pada ekosistem adalah...", 
+                opts: ["Ekosistem makin indah", "Ekosistem menjadi tidak seimbang dan terganggu", "Semua hewan langsung berukuran besar", "Tidak ada pengaruh sama sekali"], 
+                ans: 1 
+            },
+            { 
+                q: "7. Perhatikan contoh gangguan ekosistem berikut:\n(1) Gunung meletus\n(2) Penebangan hutan liar\n(3) Kebakaran hutan akibat kemarau panjang\n(4) Pencemaran limbah pabrik\nManakah yang merupakan gangguan ekosistem akibat bencana alam?", 
+                opts: ["(1) dan (3)", "(2) dan (4)", "(1) dan (2)", "(3) dan (4)"], 
+                ans: 0 
+            },
+            { 
+                q: "8. Meskipun gunung meletus merusak ekosistem sekitarnya, dalam jangka panjang abu vulkaniknya bermanfaat untuk...", 
+                opts: ["Mengurangi pasokan air bersih", "Menyuburkan tanah untuk pertumbuhan tanaman", "Menyebabkan banjir bandang", "Mematikan seluruh dekomposer selamanya"], 
+                ans: 1 
+            },
+            { 
+                q: "9. Jika manusia terus-menerus menangkap atau membunuh hewan di hutan secara sembarangan, dampak negatif yang dapat terjadi adalah...", 
+                opts: ["Hewan akan berkembang biak lebih cepat", "Terganggunya jaring-jaring makanan dan keseimbangan ekosistem", "Produsen akan habis dimakan manusia", "Tanah menjadi makin subur"], 
+                ans: 1 
+            },
+            { 
+                q: "10. Berikut ini adalah upaya manusia yang tepat untuk menjaga keberadaan produsen dan keseimbangan ekosistem di sekitar kita, yaitu...", 
+                opts: ["Membakar sampah plastik di kebun", "Menanam kembali tanaman (reboisasi)", "Menggunakan pestisida secara berlebihan", "Buru semua burung penghasil suara merdu"], 
+                ans: 1 
+            }
+        ];
+
+        // KATA KUNCI PENILAIAN URAIAN (Fleksibel, siswa bisa menjawab dengan bahasanya sendiri)
+        const uraianKeywords = [
+            ["tumbuhan", "fotosintesis", "produsen", "makan", "herbivora", "karnivora", "rantai", "serap", "energi"], // Soal 1
+            ["urai", "bangkai", "nutrisi", "sampah", "menumpuk", "tanah", "subur", "busuk", "kotor"],                // Soal 2
+            ["seimbang", "populasi", "makanan", "kontrol", "punah", "banyak", "makan", "jaga"],                      // Soal 3
+            ["penebangan", "pembakaran", "pencemaran", "berburu", "rusak", "banjir", "punah", "limbah"],             // Soal 4
+            ["pohon", "tanam", "sampah", "hemat", "reboisasi", "kebersihan", "daur ulang", "rawat"]                   // Soal 5
+        ];
+
+        let totalSkorAkhir = 0;
+
+        // FUNGSI UNTUK MENAMPILKAN SOAL PILIHAN GANDA SECARA OTOMATIS
+        function renderPG() {
+            const container = document.getElementById("pgContainer");
+            container.innerHTML = "";
+            pgData.forEach((item, idx) => {
+                let optionsHTML = "";
+                item.opts.forEach((opt, optIdx) => {
+                    optionsHTML += `
+                        <label class="flex items-center p-2.5 bg-white hover:bg-emerald-50 rounded-xl cursor-pointer border border-slate-200 transition">
+                            <input type="radio" name="pg_${idx}" value="${optIdx}" class="w-4 h-4 text-emerald-600 focus:ring-emerald-500">
+                            <span class="ml-3 font-medium text-slate-700">${String.fromCharCode(97 + optIdx)}. ${opt}</span>
+                        </label>
+                    `;
+                });
+
+                container.innerHTML += `
+                    <div class="p-4 bg-slate-50 rounded-xl border border-slate-200">
+                        <p class="font-bold text-slate-800 mb-3 whitespace-pre-line">${item.q}</p>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-2">${optionsHTML}</div>
+                    </div>
+                `;
+            });
+        }
+
+        // Panggil fungsi render saat halaman dibuka
+        window.onload = renderPG;
+
+        function hitungNilai() {
+            const nama = document.getElementById("inputNama").value;
+            if (!nama) {
+                alert("Silakan pilih nama siswa terlebih dahulu di bagian atas!");
+                document.getElementById("inputNama").focus();
+                return;
+            }
+
+            let skorPG = 0;
+            let skorUraian = 0;
+
+            // 1. Hitung Nilai Pilihan Ganda (10 Soal x 5 Poin = Maks 50)
+            pgData.forEach((item, idx) => {
+                const selected = document.querySelector(`input[name="pg_${idx}"]:checked`);
+                if (selected && parseInt(selected.value) === item.ans) {
+                    skorPG += 5;
+                }
+            });
+
+            // 2. Hitung Nilai Uraian Berdasarkan Kata Kunci (5 Soal x 10 Poin = Maks 50)
+            for (let i = 1; i <= 5; i++) {
+                const teks = document.getElementById(`uraian${i}`).value.toLowerCase().trim();
+                const keywords = uraianKeywords[i - 1];
+                let matchCount = 0;
+
+                keywords.forEach(kw => {
+                    if (teks.includes(kw)) matchCount++;
+                });
+
+                if (teks.length >= 8) {
+                    if (matchCount >= 2) {
+                        skorUraian += 10; // Sangat Tepat (Ada 2+ kata kunci)
+                    } else if (matchCount === 1 || teks.length >= 15) {
+                        skorUraian += 7;  // Cukup Tepat
+                    } else {
+                        skorUraian += 4;  // Jawaban Sangat Singkat
+                    }
+                }
+            }
+
+            totalSkorAkhir = skorPG + skorUraian;
+
+            document.getElementById("totalSkor").innerText = totalSkorAkhir;
+            document.getElementById("ringkasanSiswa").innerText = `Siswa: ${nama} | Kelas: ${document.getElementById("inputKelas").value}`;
+            
+            const hasilSec = document.getElementById("hasilSection");
+            hasilSec.classList.remove("hidden");
+            hasilSec.scrollIntoView({ behavior: "smooth" });
+        }
+
+        function kirimKeGuru() {
+            const nama = document.getElementById("inputNama").value;
+            const kelas = document.getElementById("inputKelas").value;
+            const status = document.getElementById("statusKirim");
+            const btnKirim = document.getElementById("btnKirimGuru");
+
+            status.style.color = "blue";
+            status.innerText = "Sedang mengirim data ke guru...";
+            btnKirim.disabled = true;
+
+            const payload = {
+                namaSiswa: nama,
+                kelas: kelas,
+                mataPelajaran: "IPAS",
+                namaTugas: "LKPD Ekosistem dan Keseimbangannya",
+                nilai: totalSkorAkhir
+            };
+
+            fetch(SCRIPT_URL, {
+                method: "POST",
+                mode: "no-cors",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify(payload)
+            })
+            .then(() => {
+                status.style.color = "green";
+                status.innerText = "✅ Berhasil! Nilai sudah masuk ke rekap Google Sheets guru.";
+                btnKirim.disabled = false;
+            })
+            .catch(err => {
+                status.style.color = "red";
+                status.innerText = "❌ Gagal mengirim. Periksa koneksi internet.";
+                btnKirim.disabled = false;
+            });
+        }
+    </script>
+</body>
+</html>
