@@ -31,7 +31,7 @@
 
     <main class="max-w-4xl mx-auto px-4 space-y-8">
 
-        <!-- IDENTITAS SISWA (17 NAMA SISWA) -->
+        <!-- 1. IDENTITAS SISWA (MENU PILIHAN NAMA) -->
         <section class="bg-white p-6 rounded-2xl shadow-md border-2 border-emerald-300">
             <h2 class="text-xl font-bold text-emerald-700 mb-4 flex items-center gap-2">
                 <i class="fa-solid fa-user-astronaut text-2xl"></i> Identitas Detektif Alam
@@ -67,7 +67,7 @@
             </div>
         </section>
 
-        <!-- BAGIAN A: PILIHAN GANDA (10 SOAL) -->
+        <!-- 2. BAGIAN A: PILIHAN GANDA (TEPAT DI BAWAH MENU NAMA) -->
         <section class="bg-white p-6 rounded-2xl shadow-md border-2 border-emerald-200">
             <div class="flex justify-between items-center mb-4">
                 <h2 class="text-xl font-bold text-emerald-700 flex items-center gap-2">
@@ -77,12 +77,10 @@
             </div>
             <p class="text-sm text-slate-600 mb-4">Pilihlah satu jawaban yang paling tepat!</p>
 
-            <div id="pgContainer" class="space-y-6">
-                <!-- Soal PG akan dimunculkan oleh JavaScript di bawah -->
-            </div>
+            <div id="pgContainer" class="space-y-6"></div>
         </section>
 
-        <!-- BAGIAN B: URAIAN SINGKAT (5 SOAL) -->
+        <!-- 3. BAGIAN B: URAIAN SINGKAT (5 SOAL) -->
         <section class="bg-white p-6 rounded-2xl shadow-md border-2 border-teal-200">
             <div class="flex justify-between items-center mb-4">
                 <h2 class="text-xl font-bold text-teal-700 flex items-center gap-2">
@@ -115,7 +113,7 @@
             </div>
         </section>
 
-        <!-- BAGIAN C: PERCOBAAN MINI KOMPOSTER (NON-PENILAIAN) -->
+        <!-- 4. BAGIAN C: PERCOBAAN MINI KOMPOSTER (NON-PENILAIAN / 0 POIN) -->
         <section class="bg-white p-6 rounded-2xl shadow-md border-2 border-amber-200">
             <div class="flex justify-between items-center mb-4">
                 <h2 class="text-xl font-bold text-amber-800 flex items-center gap-2">
@@ -177,7 +175,7 @@
     <script>
         const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbzXZQcWGKAYLbz9X9O2_-Qs4mIlvtf9M0xlMa-0ZwxuRBmoE9dhjmXDyGjEUAxMpEHe/exec";
 
-        // DATA 10 SOAL PILIHAN GANDA DARI GAMBAR LKPD
+        // DATA 10 SOAL PILIHAN GANDA LKPD
         const pgData = [
             { 
                 q: "1. Semua energi awal yang mengalir dalam ekosistem dan dimanfaatkan oleh tumbuhan berasal dari...", 
@@ -231,21 +229,23 @@
             }
         ];
 
-        // KATA KUNCI PENILAIAN URAIAN (Fleksibel, siswa bisa menjawab dengan bahasanya sendiri)
+        // KATA KUNCI EVALUASI URAIAN
         const uraianKeywords = [
-            ["tumbuhan", "fotosintesis", "produsen", "makan", "herbivora", "karnivora", "rantai", "serap", "energi"], // Soal 1
-            ["urai", "bangkai", "nutrisi", "sampah", "menumpuk", "tanah", "subur", "busuk", "kotor"],                // Soal 2
-            ["seimbang", "populasi", "makanan", "kontrol", "punah", "banyak", "makan", "jaga"],                      // Soal 3
-            ["penebangan", "pembakaran", "pencemaran", "berburu", "rusak", "banjir", "punah", "limbah"],             // Soal 4
-            ["pohon", "tanam", "sampah", "hemat", "reboisasi", "kebersihan", "daur ulang", "rawat"]                   // Soal 5
+            ["tumbuhan", "fotosintesis", "produsen", "makan", "herbivora", "karnivora", "rantai", "serap", "energi"], 
+            ["urai", "bangkai", "nutrisi", "sampah", "menumpuk", "tanah", "subur", "busuk", "kotor"],                
+            ["seimbang", "populasi", "makanan", "kontrol", "punah", "banyak", "makan", "jaga"],                      
+            ["penebangan", "pembakaran", "pencemaran", "berburu", "rusak", "banjir", "punah", "limbah"],             
+            ["pohon", "tanam", "sampah", "hemat", "reboisasi", "kebersihan", "daur ulang", "rawat"]                   
         ];
 
         let totalSkorAkhir = 0;
 
-        // FUNGSI UNTUK MENAMPILKAN SOAL PILIHAN GANDA SECARA OTOMATIS
+        // FUNGSI RENDER SOAL PILIHAN GANDA
         function renderPG() {
             const container = document.getElementById("pgContainer");
-            container.innerHTML = "";
+            if (!container) return;
+            
+            let html = "";
             pgData.forEach((item, idx) => {
                 let optionsHTML = "";
                 item.opts.forEach((opt, optIdx) => {
@@ -257,17 +257,20 @@
                     `;
                 });
 
-                container.innerHTML += `
+                html += `
                     <div class="p-4 bg-slate-50 rounded-xl border border-slate-200">
                         <p class="font-bold text-slate-800 mb-3 whitespace-pre-line">${item.q}</p>
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-2">${optionsHTML}</div>
                     </div>
                 `;
             });
+            container.innerHTML = html;
         }
 
-        // Panggil fungsi render saat halaman dibuka
-        window.onload = renderPG;
+        // TAMPILKAN SOAL OTOMATIS SAAT DOM DILUAT
+        document.addEventListener("DOMContentLoaded", function() {
+            renderPG();
+        });
 
         function hitungNilai() {
             const nama = document.getElementById("inputNama").value;
@@ -280,7 +283,7 @@
             let skorPG = 0;
             let skorUraian = 0;
 
-            // 1. Hitung Nilai Pilihan Ganda (10 Soal x 5 Poin = Maks 50)
+            // 1. Hitung PG (10 Soal x 5 Poin = Maks 50)
             pgData.forEach((item, idx) => {
                 const selected = document.querySelector(`input[name="pg_${idx}"]:checked`);
                 if (selected && parseInt(selected.value) === item.ans) {
@@ -288,7 +291,7 @@
                 }
             });
 
-            // 2. Hitung Nilai Uraian Berdasarkan Kata Kunci (5 Soal x 10 Poin = Maks 50)
+            // 2. Hitung Uraian (5 Soal x 10 Poin = Maks 50)
             for (let i = 1; i <= 5; i++) {
                 const teks = document.getElementById(`uraian${i}`).value.toLowerCase().trim();
                 const keywords = uraianKeywords[i - 1];
@@ -300,11 +303,11 @@
 
                 if (teks.length >= 8) {
                     if (matchCount >= 2) {
-                        skorUraian += 10; // Sangat Tepat (Ada 2+ kata kunci)
+                        skorUraian += 10;
                     } else if (matchCount === 1 || teks.length >= 15) {
-                        skorUraian += 7;  // Cukup Tepat
+                        skorUraian += 7;
                     } else {
-                        skorUraian += 4;  // Jawaban Sangat Singkat
+                        skorUraian += 4;
                     }
                 }
             }
