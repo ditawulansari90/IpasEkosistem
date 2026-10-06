@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LKPD Interaktif IPAS - Ekosistem dan Keseimbangannya</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;600;700&family=Quicksand:wght@500;700&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Quicksand', sans-serif; background-color: #f0fdf4; }
+        h1, h2, h3 { font-family: 'Fredoka', cursive; }
+    </style>
+</head>
+<body class="bg-emerald-50 min-h-screen text-slate-800 pb-12">
+
+    <!-- HEADER -->
+    <header class="bg-emerald-500 border-b-4 border-emerald-600 py-6 px-4 mb-6 shadow-lg text-center text-white">
+        <div class="max-w-4xl mx-auto">
+            <span class="bg-white text-emerald-700 font-bold px-4 py-1 rounded-full text-sm mb-2 inline-block">
+                🌿 IPAS Kelas 5 SD / MI
+            </span>
+            <h1 class="text-2xl md:text-4xl font-extrabold tracking-wide">
+                LEMBAR KERJA PESERTA DIDIK (LKPD) INTERAKTIF
+            </h1>
+            <p class="text-lg font-semibold text-emerald-100 mt-1">
+                EKOSISTEM DAN KESEIMBANGANNYA - "Jaga Alam, Jaga Kehidupan"
+            </p>
+        </div>
+    </header>
+
+    <main class="max-w-4xl mx-auto px-4 space-y-8">
+
+        <!-- IDENTITAS SISWA -->
+        <section class="bg-white p-6 rounded-2xl shadow-md border-2 border-emerald-300">
+            <h2 class="text-xl font-bold text-emerald-700 mb-4 flex items-center gap-2">
+                <i class="fa-solid fa-user-astronaut text-2xl"></i> Identitas Detektif Alam
+            </h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div>
+                    <label class="block text-sm font-bold text-slate-600 mb-1">Nama Lengkap:</label>
+                    <select id="inputNama" class="w-full px-4 py-2 border-2 border-slate-200 rounded-xl focus:border-emerald-500 focus:outline-none bg-white font-medium">
+                        <option value="">-- Pilih Nama Kamu --</option>
+                        <option value="Ahmad Bibi Prianto">Ahmad Bibi Prianto</option>
+                        <option value="Ahmad Ragil Setiawan">Ahmad Ragil Setiawan</option>
+                        <option value="Ahmad Aidillah">Ahmad Aidillah</option>
+                        <option value="An Nisa Alimah">An Nisa Alimah</option>
+                        <option value="Azahra Radya Utami">Azahra Radya Utami</option>
+                        <option value="Fatkhul Mahdi Mubarok">Fatkhul Mahdi Mubarok</option>
+                        <option value="Gibran Albyananda Putra">Gibran Albyananda Putra</option>
+                        <option value="Muhammad Dandiansyah">Muhammad Dandiansyah</option>
+                        <option value="Muhammad Irawan">Muhammad Irawan</option>
+                        <option value="Muhammad Rava Azka Putra">Muhammad Rava Azka Putra</option>
+                        <option value="Munawarah Annisa Rahma">Munawarah Annisa Rahma</option>
+                        <option value="Nafisa Nur Adila Sari">Nafisa Nur Adila Sari</option>
+                        <option value="Naila Lailatul Zahwa">Naila Lailatul Zahwa</option>
+                        <option value="Rangga Shyura">Rangga Shyura</option>
+                        <option value="Silfa Ananta Nur Afifah">Silfa Ananta Nur Afifah</option>
+                        <option value="Widya Erlin Sa'diyah">Widya Erlin Sa'diyah</option>
+                        <option value="Yusep Maumali">Yusep Maumali</option>
+                    </select>
+                </div>
+                <div>
+                    <label class="block text-sm font-bold text-slate-600 mb-1">Kelas:</label>
+                    <input type="text" id="inputKelas" value="5 (Lima)" class="w-full px-4 py-2 border-2 border-slate-200 rounded-xl focus:border-emerald-500 focus:outline-none">
+                </div>
+            </div>
+        </section>
+
+        <!-- BAGIAN A: PILIHAN GANDA (10 SOAL) -->
+        <section class="bg-white p-6 rounded-2xl shadow-md border-2 border-emerald-200">
+            <div class="flex justify-between items-center mb-4">
+                <h2 class="text-xl font-bold text-emerald-700 flex items-center gap-2">
+                    <i class="fa-solid fa-list-check"></i> A. PILIHAN GANDA (10 Soal)
+                </h2>
+                <span class="bg-emerald-100 text-emerald-800 text-xs font-bold px-3 py-1 rounded-full">Skor Maks: 50</span>
+            </div>
+            <p class="text-sm text-slate-600 mb-4">Pilihlah satu jawaban yang paling tepat!</p>
+
+            <div id="pgContainer" class="space-y-6"></div>
+        </section>
+
+        <!-- BAGIAN B: URAIAN SINGKAT (5 SOAL) -->
+        <section class="bg-white p-6 rounded-2xl shadow-md border-2 border-teal-200">
+            <div class="flex justify-between items-center mb-4">
+                <h2 class="text-xl font-bold text-teal-700 flex items-center gap-2">
+                    <i class="fa-solid fa-pen-to-square"></i> B. URAIAN SINGKAT (5 Soal)
+                </h2>
+                <span class="bg-teal-100 text-teal-800 text-xs font-bold px-3 py-1 rounded-full">Skor Maks: 50</span>
+            </div>
+
+            <div class="space-y-4">
+                <div>
+                    <label class="block font-medium text-slate-700 mb-1">1. Jelaskan bagaimana energi dari Matahari dapat sampai dan disalurkan hingga ke hewan karnivora!</label>
+                    <textarea id="uraian1" rows="2" class="w-full p-3 border-2 border-slate-200 rounded-xl focus:border-teal-400 focus:outline-none" placeholder="Tuliskan jawabanmu..."></textarea>
+                </div>
+                <div>
+                    <label class="block font-medium text-slate-700 mb-1">2. Mengapa dekomposer (pengurai) dinamakan sebagai "pahlawan pembersih" dalam ekosistem? Apa yang terjadi jika tidak ada dekomposer di bumi?</label>
+                    <textarea id="uraian2" rows="2" class="w-full p-3 border-2 border-slate-200 rounded-xl focus:border-teal-400 focus:outline-none" placeholder="Tuliskan jawabanmu..."></textarea>
+                </div>
+                <div>
+                    <label class="block font-medium text-slate-700 mb-1">3. Bagaimana keberadaan jaring-jaring makanan dapat membantu menjaga keseimbangan populasi makhluk hidup di suatu wilayah?</label>
+                    <textarea id="uraian3" rows="2" class="w-full p-3 border-2 border-slate-200 rounded-xl focus:border-teal-400 focus:outline-none" placeholder="Tuliskan jawabanmu..."></textarea>
+                </div>
+                <div>
+                    <label class="block font-medium text-slate-700 mb-1">4. Sebutkan 2 contoh kegiatan manusia yang dapat merusak keseimbangan ekosistem beserta dampaknya!</label>
+                    <textarea id="uraian4" rows="2" class="w-full p-3 border-2 border-slate-200 rounded-xl focus:border-teal-400 focus:outline-none" placeholder="Tuliskan jawabanmu..."></textarea>
+                </div>
+                <div>
+                    <label class="block font
